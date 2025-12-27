@@ -10,10 +10,10 @@ Topbar.propTypes = {
 function Topbar({ name, notifications }) {
   const navigate = useNavigate();
   let logout = () => {
-    localStorage.removeItem("admin");
-    localStorage.removeItem("hostel");
-    localStorage.removeItem("student");
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("admin");
+    sessionStorage.removeItem("hostel");
+    sessionStorage.removeItem("student");
+    sessionStorage.removeItem("token");
     navigate("/");
   };
 

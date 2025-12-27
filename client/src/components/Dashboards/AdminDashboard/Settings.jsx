@@ -6,7 +6,7 @@ function Settings() {
   const navigate = useNavigate();
   const changePassword = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("admin"));
+    const user = JSON.parse(sessionStorage.getItem("admin"));
     
     const data = {
       email: user.email,
@@ -14,7 +14,7 @@ function Settings() {
       newPassword: pass,
     };
     
-    let result = await fetch("http://localhost:3000/api/auth/change-password", {
+    let result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/change-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

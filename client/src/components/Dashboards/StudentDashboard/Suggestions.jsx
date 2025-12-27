@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 function Suggestions() {
   const registerSuggestions = async (e) => {
     e.preventDefault();
-    const student = JSON.parse(localStorage.getItem("student"));
-    const response = await fetch("http://localhost:3000/api/suggestion/register", {
+    const student = JSON.parse(sessionStorage.getItem("student"));
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/suggestion/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

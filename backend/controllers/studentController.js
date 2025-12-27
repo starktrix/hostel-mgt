@@ -1,6 +1,6 @@
 const { generateToken, verifyToken } = require('../utils/auth');
 const { validationResult } = require('express-validator');
-const { Student, Hostel, User } = require('../models');
+const { Student, Hostel, User, Request } = require('../models');
 const bcrypt = require('bcryptjs');
 const Parser = require('json2csv').Parser;
 
@@ -9,21 +9,33 @@ const registerStudent = async (req, res) => {
     let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // console.log(errors);
+        console.log("EROROR>>>>>>>>>>>>>>", errors);
         return res.status(400).json({success, errors: errors.array() });
     }
+
 
     const { name, cms_id, room_no, batch, dept, course, email, father_name, contact, address, dob, cnic, hostel, password } = req.body;
     try {
         let student = await Student.findOne({ cms_id });
+
 
         if (student) {
             return res.status(400).json({success, errors: [{ msg: 'Student already exists' }] });
         }
         let shostel = await Hostel.findOne({ name: hostel });
 
+
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
+
+
+
+        let request = await Request.findOne({ cms_id });
+
+        if (!request) {
+            return res.status(403).json({success, errors: [{ msg: 'No matching request exists' }] });
+        }
 
         let user = new User({
             email,
@@ -53,9 +65,11 @@ const registerStudent = async (req, res) => {
 
         await student.save();
 
+
         success = true;
         res.json({success, student });
     } catch (err) {
+        console.error(err)
         res.status(500).json({success, errors: 'Server error'});
     }
 }

@@ -9,7 +9,7 @@ import { Loader } from "../../Dashboards/Common/Loader";
 export default function SignIn() {
   let navigate = useNavigate();
 
-  if (localStorage.getItem("token")) {
+  if (sessionStorage.getItem("token")) {
     verifysession();
   }
 
@@ -21,7 +21,7 @@ export default function SignIn() {
       password: pass,
     };
 
-    let response = await fetch("http://localhost:3000/api/auth/login", {
+    let response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,8 +32,8 @@ export default function SignIn() {
     let result = await response.json();
 
     if (result.success) {
-      localStorage.setItem("token", result.data.token);
-      let student = await fetch("http://localhost:3000/api/student/get-student", {
+      sessionStorage.setItem("token", result.data.token);
+      let student = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/get-student`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export default function SignIn() {
 
       let studentResult = await student.json();
       if (studentResult.success) {
-        localStorage.setItem("student", JSON.stringify(studentResult.student));
+        sessionStorage.setItem("student", JSON.stringify(studentResult.student));
         navigate("/student-dashboard");
       } else {
         // console.log(studentResult.errors)

@@ -1,6 +1,6 @@
 const getAllStudents = async () => {
-    const hostel = JSON.parse(localStorage.getItem("hostel"))._id;
-    const result = await fetch("http://localhost:3000/api/student/get-all-students", {
+    const hostel = JSON.parse(sessionStorage.getItem("hostel"))._id;
+    const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/get-all-students`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

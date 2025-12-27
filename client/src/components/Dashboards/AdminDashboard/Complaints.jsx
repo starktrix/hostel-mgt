@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Complaints() {
   const getComplaints = async () => {
-    const hostel = JSON.parse(localStorage.getItem("hostel"))._id;
+    const hostel = JSON.parse(sessionStorage.getItem("hostel"))._id;
     const response = await fetch(
-      `http://localhost:3000/api/complaint/hostel`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/complaint/hostel`,
       {
         method: "POST",
         headers: {
@@ -57,7 +57,7 @@ function Complaints() {
 
   const dismissComplaint = async (id) => {
     const response = await fetch(
-      "http://localhost:3000/api/complaint/resolve/",
+      `${import.meta.env.VITE_BACKEND_URL}/api/complaint/resolve/`,
       {
         method: "POST",
         headers: {

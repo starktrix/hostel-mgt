@@ -129,7 +129,7 @@ export default function Index() {
     },
   ];
 
-  const student = JSON.parse(localStorage.getItem("student"));
+  const student = JSON.parse(sessionStorage.getItem("student"));
 
   return (
     <div className="flex">

@@ -17,8 +17,8 @@ const List = () => {
     },
   ]);
   useEffect(() => {
-    let student = JSON.parse(localStorage.getItem("student"));
-    fetch("http://localhost:3000/api/invoice/student", {
+    let student = JSON.parse(sessionStorage.getItem("student"));
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/invoice/student`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -117,11 +117,11 @@ const List = () => {
 };
 
 function Home() {
-  let student = JSON.parse(localStorage.getItem("student"));
+  let student = JSON.parse(sessionStorage.getItem("student"));
 
   const getAttendance = async () => {
-    let student = JSON.parse(localStorage.getItem("student"));
-    const res = await fetch("http://localhost:3000/api/attendance/get", {
+    let student = JSON.parse(sessionStorage.getItem("student"));
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/get`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

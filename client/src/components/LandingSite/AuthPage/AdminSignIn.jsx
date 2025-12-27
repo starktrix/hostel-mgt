@@ -9,9 +9,9 @@ export default function AdminSignIn() {
   let navigate = useNavigate();
   
   const getHostel = async () => {
-    let admin = JSON.parse(localStorage.getItem("admin"));
+    let admin = JSON.parse(sessionStorage.getItem("admin"));
     try {
-      const res = await fetch("http://localhost:3000/api/admin/get-hostel", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/get-hostel`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -20,7 +20,7 @@ export default function AdminSignIn() {
       });
 
       const data = await res.json();
-      localStorage.setItem("hostel", JSON.stringify(data.hostel));
+      sessionStorage.setItem("hostel", JSON.stringify(data.hostel));
     } catch (err) {
       // console.log(err);
     }
@@ -34,7 +34,7 @@ export default function AdminSignIn() {
       password: pass,
     };
 
-    let response = await fetch("http://localhost:3000/api/auth/login", {
+    let response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +46,8 @@ export default function AdminSignIn() {
 
 
     if (result.success) {
-      localStorage.setItem("token", result.data.token);
-      let admin = await fetch("http://localhost:3000/api/admin/get-admin", {
+      sessionStorage.setItem("token", result.data.token);
+      let admin = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/get-admin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function AdminSignIn() {
 
       let adminResult = await admin.json();
       if (adminResult.success) {
-        localStorage.setItem("admin", JSON.stringify(adminResult.admin));
+        sessionStorage.setItem("admin", JSON.stringify(adminResult.admin));
         await getHostel();
         navigate("/admin-dashboard");
       } else {

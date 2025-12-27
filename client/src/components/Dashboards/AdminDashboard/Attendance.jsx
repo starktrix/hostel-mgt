@@ -8,12 +8,12 @@ import LoadingBar from 'react-top-loading-bar'
 function Attendance() {
   const getALL = async () => {
     setProgress(30);
-    const marked = await fetch("http://localhost:3000/api/attendance/getHostelAttendance", {
+    const marked = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/getHostelAttendance`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         },
-        body: JSON.stringify({ hostel: JSON.parse(localStorage.getItem("hostel"))._id }),
+        body: JSON.stringify({ hostel: JSON.parse(sessionStorage.getItem("hostel"))._id }),
         });
     setProgress(40);
     const markedData = await marked.json();
@@ -55,7 +55,7 @@ function Attendance() {
   const [markedStudents, setMarkedStudents] = useState([]);
 
   const markAttendance = async (id, isPresent) => {
-    const data = await fetch(`http://localhost:3000/api/attendance/mark`, {
+    const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/mark`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

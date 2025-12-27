@@ -7,7 +7,12 @@ const port = 3000
 
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true, // only if you use cookies/auth
+  })
+)
 
 app.use(express.json({ extended: false }));
 
@@ -20,6 +25,10 @@ app.use('/api/messoff', require('./routes/messoffRoutes'));
 app.use('/api/request', require('./routes/requestRoutes'));
 app.use('/api/attendance', require('./routes/attendanceRoutes'));
 app.use('/api/suggestion', require('./routes/suggestionRoutes'));
+
+app.use("/api/health", (req, res) => {
+  res.json({message: "API is live!!"});
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

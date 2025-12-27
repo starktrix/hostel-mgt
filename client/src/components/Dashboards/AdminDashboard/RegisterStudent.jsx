@@ -26,7 +26,7 @@ function RegisterStudent() {
         hostel: hostel,
         password: password
       };
-      const res = await fetch("http://localhost:3000/api/student/register-student", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/student/register-student`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ function RegisterStudent() {
     }
   };
 
-  const hostel = JSON.parse(localStorage.getItem("hostel")).name;
+  const hostel = JSON.parse(sessionStorage.getItem("hostel")).name;
   const [cms, setCms] = useState();
   const [name, setName] = useState();
   const [room_no, setRoomNo] = useState();

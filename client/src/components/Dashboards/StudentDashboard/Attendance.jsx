@@ -4,8 +4,8 @@ import { Doughnut } from "react-chartjs-2";
 function Attendance() {
   const [totalDays, setTotalDays] = useState(0);
   const getAttendance = async () => {
-      let student = JSON.parse(localStorage.getItem("student"));
-      const res = await fetch("http://localhost:3000/api/attendance/get", {
+      let student = JSON.parse(sessionStorage.getItem("student"));
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/get`, {
         method: "POST",
         headers:{
           "Content-Type": "application/json",

@@ -1,10 +1,10 @@
 const verifysession = async () => {
-    let response = await fetch("http://localhost:3000/api/auth/verifysession", {
+    let response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/verifysession`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({token: localStorage.getItem("token")})
+      body: JSON.stringify({token: sessionStorage.getItem("token")})
     });
 
     let result = await response.json();
@@ -16,8 +16,8 @@ const verifysession = async () => {
       }
     }
     else {
-      localStorage.removeItem("token");
-      localStorage.removeItem("student");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("student");
     }
   };
 

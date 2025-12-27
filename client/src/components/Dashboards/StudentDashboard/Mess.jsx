@@ -10,12 +10,12 @@ function Mess() {
     event.preventDefault();
     setLoading(true);
     let data = {
-      student: JSON.parse(localStorage.getItem("student"))._id,
+      student: JSON.parse(sessionStorage.getItem("student"))._id,
       leaving_date: leaveDate,
       return_date: returnDate,
     };
 
-    let response = await fetch("http://localhost:3000/api/Messoff/request", {
+    let response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/Messoff/request`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,10 +90,10 @@ function Mess() {
   // console.log(returnDate);
 
   useEffect(() => {
-    let student = JSON.parse(localStorage.getItem("student"));
+    let student = JSON.parse(sessionStorage.getItem("student"));
     setLoading(true);
     if (student) {
-      fetch("http://localhost:3000/api/Messoff/count", {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/Messoff/count`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

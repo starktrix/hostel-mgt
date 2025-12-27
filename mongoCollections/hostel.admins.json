@@ -2,9 +2,9 @@
   "_id": {
     "$oid": "645b965902723b061fab22a2"
   },
-  "name": "Muhammad Danish",
-  "email": "muhammaddanish14@gmail.com",
-  "father_name": "Muhammad Tariq",
+  "name": "Steve Rogers",
+  "email": "steverogers@gmail.com",
+  "father_name": "Captain",
   "contact": "03074741119",
   "address": "Habibabad, Pattoki, Kasur",
   "dob": {

@@ -170,7 +170,7 @@ export default function Index() {
     },
   ];
 
-  const admin = JSON.parse(localStorage.getItem("admin"));
+  const admin = JSON.parse(sessionStorage.getItem("admin"));
 
   const [notifications, setNotifications] = useState([
     368115, 347403, 377902, 369420,

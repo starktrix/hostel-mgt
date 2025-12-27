@@ -7,8 +7,8 @@ function Invoices() {
   const [paidInvoices, setPaidInvoices] = useState(0);
 
   useEffect(() => {
-    let student = JSON.parse(localStorage.getItem("student"));
-    fetch("http://localhost:3000/api/invoice/student", {
+    let student = JSON.parse(sessionStorage.getItem("student"));
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/invoice/student`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,14 +20,14 @@ function Invoices() {
         if (data.success) {
           let invoices = data.invoices;
           let List = [];
-          let paidInvoices = 0;
-          let pendingInvoices = 0;
-    
+          let _paidInvoices = 0;
+          let _pendingInvoices = 0;
+          console.log(invoices)
           invoices.forEach((invoice) => {
-            if (invoice.status.toLowerCase === "paid") {
-              paidInvoices += 1;
+            if (invoice.status.toLowerCase() === "approved") {
+              _paidInvoices += 1;
             } else {
-              pendingInvoices += 1;
+              _pendingInvoices += 1;
             }
             let date = new Date(invoice.date);
             invoice.date= date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -42,8 +42,8 @@ function Invoices() {
           });
           setInvoiceList(List);
           setTotalInvoices(invoices.length);
-          setPaidInvoices(paidInvoices);
-          setPendingInvoices(pendingInvoices);
+          setPaidInvoices(_paidInvoices);
+          setPendingInvoices(_pendingInvoices);
         }
       });
   }, [invoiceList.length, totalInvoices, pendingInvoices, paidInvoices]);
@@ -85,7 +85,7 @@ function Invoices() {
               <li className="py-3 sm:py-4" key="1">
                 <div className="flex items-center space-x-4">
                   <div className="flex-shrink-0 text-white">
-                    {invoice.status.toLowerCase() === "pending" ? (
+                    {invoice.status.toLowerCase() === "approved" ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

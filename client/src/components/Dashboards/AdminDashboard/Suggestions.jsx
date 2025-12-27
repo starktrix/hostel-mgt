@@ -6,8 +6,8 @@ import { Loader } from "../../Dashboards/Common/Loader";
 
 function Suggestions() {
   const getSuggestions = async () => {
-    const hostel = JSON.parse(localStorage.getItem("hostel"));
-    const response = await fetch("http://localhost:3000/api/suggestion/hostel", {
+    const hostel = JSON.parse(sessionStorage.getItem("hostel"));
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/suggestion/hostel`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function Suggestions() {
 
   const updateSuggestion = async (id) => {
     setLoader(true);
-    const response = await fetch("http://localhost:3000/api/suggestion/update", {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/suggestion/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,7 +10,7 @@ function Complaints() {
   const registerComplaint = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let student = JSON.parse(localStorage.getItem("student"));
+    let student = JSON.parse(sessionStorage.getItem("student"));
     const complaint = {
       student: student._id,
       hostel: student.hostel,
@@ -19,7 +19,7 @@ function Complaints() {
       type: type,
     };
 
-    const res = await fetch("http://localhost:3000/api/complaint/register", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/complaint/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,10 +99,10 @@ function Complaints() {
 
   
   useEffect(()=> {
-    const student = JSON.parse(localStorage.getItem("student"));
+    const student = JSON.parse(sessionStorage.getItem("student"));
     const cmpln = { student: student._id };
     const fetchComplaints = async () => {
-      const res = await fetch("http://localhost:3000/api/complaint/student", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/complaint/student`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
